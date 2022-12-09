@@ -1,0 +1,115 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class ShakerSort {
+
+//    static int[] findNajmal(int arr[], int times) {
+//
+//        int length = arr.length;
+//        int najmal = arr[times];
+//
+//        for (int i=times; i<length; i++) {
+//
+//            if (najmal > arr[i]) {
+//
+//                najmal = arr[i];
+//            }
+//        }
+//
+//        int newArr[] = new int[length];
+//        newArr[times] = najmal;
+//        int newArrIndex = times+1;
+//
+//        for (int i=times; i<length; i++) {
+//
+//            if (arr[i] == najmal) {
+//                continue;
+//            }
+//
+//            newArr[newArrIndex] = arr[i];
+//            newArrIndex++;
+//        }
+//
+//        for (int i=0; i<length; i++) {
+//            System.out.println("newArrIndex[i] = " + newArr[i]);
+//
+//        }
+//
+//
+//        return newArr;
+//    }
+    static void printArr(int [] a) {
+        int i;
+
+
+
+        for (i=0; i<a.length; ++i)
+            System.out.print(a[i] + " ");
+        System.out.println();
+        
+
+    }
+
+
+    static void shakerSort(int a[], int n)
+    {
+        int indexSmall = 0;
+        int indexBig = 0;
+
+        if (a.length == 1) {
+            System.out.println( a[0]);
+            System.out.println( a[0]);
+            return ;
+        }
+
+        boolean swap = false;
+        for (int j=0; j < (n)/2; ++j) {
+
+            swap = true;
+
+            //bubbleSortMin
+            for (int i = a.length-1; i > indexSmall; --i) {
+                if (a[i] < a[i-1]) {
+                    int temp = a[i];
+                    a[i] = a[i-1];
+                    a[i-1] = temp;
+                    swap = false;
+                }
+            }
+            indexSmall++;
+            printArr(a);
+
+            //bubbleSortMax
+            for (int i= indexBig; i < n -1; ++i ) {
+                if (a[i] > a[i+1]) {
+                    int temp = a[i];
+                    a[i] = a[i+1];
+                    a[i+1] = temp;
+                    swap = false;
+                }
+            }
+            indexBig++;
+            printArr(a);
+            if (swap)
+                break;
+        }
+    }
+
+
+
+
+    public static void main(String[] args) throws IOException{
+        int i;
+        BufferedReader stdin = new BufferedReader( new InputStreamReader(System.in));
+        String s = stdin.readLine();
+        int n = Integer.parseInt(s);
+
+        s = stdin.readLine();
+        String [] pom = s.split(" ");
+        int [] a = new int[n];
+        for(i=0;i<n;i++)
+            a[i]=Integer.parseInt(pom[i]);
+        shakerSort(a,n);
+    }
+}
