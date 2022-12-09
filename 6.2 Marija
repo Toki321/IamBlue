@@ -4,41 +4,6 @@ import java.io.InputStreamReader;
 
 public class ShakerSort {
 
-//    static int[] findNajmal(int arr[], int times) {
-//
-//        int length = arr.length;
-//        int najmal = arr[times];
-//
-//        for (int i=times; i<length; i++) {
-//
-//            if (najmal > arr[i]) {
-//
-//                najmal = arr[i];
-//            }
-//        }
-//
-//        int newArr[] = new int[length];
-//        newArr[times] = najmal;
-//        int newArrIndex = times+1;
-//
-//        for (int i=times; i<length; i++) {
-//
-//            if (arr[i] == najmal) {
-//                continue;
-//            }
-//
-//            newArr[newArrIndex] = arr[i];
-//            newArrIndex++;
-//        }
-//
-//        for (int i=0; i<length; i++) {
-//            System.out.println("newArrIndex[i] = " + newArr[i]);
-//
-//        }
-//
-//
-//        return newArr;
-//    }
     static void printArr(int [] a) {
         int i;
 
