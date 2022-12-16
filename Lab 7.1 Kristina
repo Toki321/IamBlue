@@ -1,0 +1,123 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+ 
+ 
+public class Apteka {
+ 
+    private static int parse(String s) {
+        return Integer.parseInt(s);
+    }
+    
+    public static void main(String[] args) throws NumberFormatException, IOException {
+        
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        
+        int howManyItems = parse(bf.readLine());
+        
+        Map<ItemName, Item> map = new HashMap<>();
+        
+        for(int i=0;i<howManyItems;i++) {
+            String[] parts = bf.readLine().split(" ");
+            Item ins = new Item(parts[0].toUpperCase(), parse(parts[1]), parse(parts[2]), parse(parts[3]));
+            map.put(new ItemName(parts[0].toUpperCase()), ins);
+        }
+        
+        String name = null;
+        while(!(name = bf.readLine()).equals("KRAJ")) {
+            ItemName im = new ItemName(name.toUpperCase());
+            int buy = parse(bf.readLine());
+            if(!map.containsKey(im)) {
+                System.out.println("Nema takov lek");
+                continue;
+            }
+            Item lek = map.get(im);
+            System.out.println(lek);
+            if(!lek.checkStorage(buy)) {
+                System.out.println("Nema dovolno lekovi");
+                continue;
+            }
+            else {
+                System.out.println("Napravena naracka");
+                lek.buyItem(buy);
+            }
+        }
+ 
+    }
+ 
+}
+ 
+class ItemName {
+    
+    private String name;
+ 
+    public ItemName(String name) {
+        super();
+        this.name = name;
+    }
+    
+    private int ASCII(char c) {
+        return (int)c;
+    }
+    
+    @Override
+    public int hashCode() {
+        return (29*(29*(29*0+ASCII(name.charAt(0)))+ASCII(name.charAt(1)))+ASCII(name.charAt(2)))%102780;
+    }
+ 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ItemName other = (ItemName) obj;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        return true;
+    }
+    
+}
+ 
+class Item{
+    
+    private String name;
+    private int onList;
+    private int price;
+    private int howMany;
+    
+    public Item(String name, int onList, int price, int howMany) {
+        super();
+        this.name = name;
+        this.onList = onList;
+        this.price = price;
+        this.howMany = howMany;
+    }
+ 
+    @Override
+    public String toString() {
+        String s = this.name + "\n";
+        if(this.onList == 1)
+            s += "POZ\n";
+        else
+            s += "NEG\n";
+        s += this.price + "\n" + this.howMany;
+        return s;
+    }
+    
+    public boolean checkStorage(int take) {
+        return (take <= this.howMany);
+    }
+    
+    public void buyItem(int howMany) {
+        this.howMany -= howMany;
+    }
+    
+}
