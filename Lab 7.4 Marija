@@ -148,7 +148,7 @@ public class RoutingHashJava {
             if(node != null){
                 String rut = node.element.key; //index
                 String[] ip_adresi = node.element.value.split("\\,"); //vrednosti pod toj index
-                int brojac = 0;
+                int counter = 0;
                 
                 for(int j=0;j<ip_adresi.length;j++){
                     String[] parts = ip_adresi[j].split("\\.");
@@ -158,7 +158,7 @@ public class RoutingHashJava {
                         break;
                     }
                 }
-                if(brojac < 1){
+                if(counter < 1){
                     System.out.println("ne postoi");
                 }
             } else {
